@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Toolbox Talk Library</title>
+  <style>
+    :root{--bg:#f7fbff;--card:#ffffff;--accent:#0b5cff;--muted:#6b7280}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Noto Sans',Arial;min-height:100vh;margin:0;background:var(--bg);color:#0b2447}
+    header{background:linear-gradient(90deg,#e6f0ff, #f7fbff);padding:18px 16px;border-bottom:1px solid rgba(11,92,255,0.06)}
+    .wrap{max-width:900px;margin:18px auto;padding:0 16px}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+    .grid {
+      display: grid;
+      grid-template-rows: repeat(6, auto); /* 6 rows vertically */
+      grid-auto-flow: column;             /* fill column 1 then column 2 */
+      gap: 12px 20px;                     /* row gap 12px, column gap 20px */
+      margin-top: 16px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .card{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 2px 6px rgba(12,34,80,0.04);display:flex;align-items:center;justify-content:space-between}
+    .left{display:flex;gap:12px;align-items:center}
+    .num{width:36px;height:36px;border-radius:8px;background:#eef4ff;color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700}
+    .meta{min-width:0}
+    .title{font-size:15px;margin:0}
+    .subtitle{font-size:12px;color:var(--muted);margin-top:4px}
+
+    .actions{display:flex;gap:8px}
+    .btn{padding:8px 10px;border-radius:8px;border:0;cursor:pointer;font-weight:600;background:#f1f5ff}
+    .btn.video{background:linear-gradient(90deg, #fff, #eef4ff)}
+    .btn.poster{background:linear-gradient(90deg,#fff,#fff)}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(3,10,18,0.5);z-index:60}
+    .modal.open{display:flex}
+    .modal-card{background:#fff;border-radius:10px;max-width:920px;width:96%;max-height:92vh;overflow:auto;padding:12px}
+    .modal-header{display:flex;justify-content:space-between;align-items:center}
+    .close{background:none;border:0;font-size:18px;cursor:pointer}
+    .media-wrap{margin-top:8px}
+    img.poster{max-width:100%;height:auto;border-radius:6px}
+    video{width:100%;height:auto;border-radius:6px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Toolbox Talk Library</h1>
+      <p class="lead">Scan QR → Open topic → Tap Poster or Video. Works offline if files are in the same folder on the device.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="grid" id="topics">
+
+      <article class="card" data-poster="https://drive.google.com/file/d/14JHXvNtV_D4t9akY5C6bNl4k5n-dcqG5/view?usp=drive_link" data-video="ppe_video.mp4">
+        <div class="left">
+          <div class="num">1</div>
+          <div class="meta">
+            <div class="title">PPE'S</div>
+            <div class="subtitle">Personal Protective Equipment — short poster & 2-min video</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn poster" data-action="poster">Poster</button>
+          <button class="btn video" data-action="video">Video</button>
+        </div>
+      </article>
+
+      <article class="card" data-poster="rail_road_poster.jpg" data-video="rail_road_video.mp4">
+        <div class="left">
+          <div class="num">2</div>
+          <div class="meta">
+            <div class="title">RAIL & ROAD SAFETY</div>
+            <div class="subtitle">Safe movement near rail/roadways</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn poster" data-action="poster">Poster</button>
+          <button class="btn video" data-action="video">Video</button>
+        </div>
+      </article>
+
+      <article class="card" data-poster="bypass_poster.jpg" data-video="bypass_video.mp4">
+        <div class="left">
+          <div class="num">3</div>
+          <div class="meta">
+            <div class="title">BYPASS SAFETY CONTROL</div>
+            <div class="subtitle">Controls for bypass operations</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn poster" data-action="poster">Poster</button>
+          <button class="btn video" data-action="video">Video</button>
+        </div>
+      </article>
+
+      <article class="card" data-poster="confined_poster.jpg" data-video="confined_video.mp4">
+        <div class="left">
+          <div class="num">4</div>
+          <div class="meta">
+            <div class="title">CONFINED SPACE</div>
+            <div class="subtitle">Entry procedures & rescue</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn poster" data-action="poster">Poster</button>
+          <button class="btn video" data-action="video">Video</button>
+        </div>
+      </article>
+
+      <article class="card" data-poster="workpermit_poster.jpg" data-video="workpermit_video.mp4">
+        <div class="left">
+          <div class="num">5</div>
+          <div class="meta">
+            <div class="title">WORK PERMIT</div>
+            <div class="subtitle">Permit-to-work system</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn poster" data-action="poster">Poster</button>
+          <button class="btn video" data-action="video">Video</button>
+        </div>
+      </article>
+
+      <article class="card" data-poster="isolation_poster.jpg" data-video="isolation_video.mp4">
+        <div class="left">
+          <div class="num">6</div>
+          <div class="meta">
+            <div class="title">POSITIVE ISOLATION</div>
+            <div class="subtitle">Lockout-tagout and isolation checks</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn poster" data-action="poster">Poster</button>
+          <button class="btn video" data-action="video">Video</button>
+        </div>
+      </article>
+
+      <article class="card" data-poster="height_poster.jpg" data-video="height_video.mp4">
+        <div class="left">
+          <div class="num">7</div>
+          <div class="meta">
+            <div class="title">WORKING AT HEIGHT</div>
+            <div class="subtitle">Safe anchoring and fall protection</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn poster" data-action="poster">Poster</button>
+          <button class="btn video" data-action="video">Video</button>
+        </div>
+      </article>
+
+      <article class="card" data-poster="material_poster.jpg" data-video="material_video.mp4">
+        <div class="left">
+          <div class="num">8</div>
+          <div class="meta">
+            <div class="title">MATERIAL HANDLING</div>
+            <div class="subtitle">Manual handling & mechanical aids</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn poster" data-action="poster">Poster</button>
+          <button class="btn video" data-action="video">Video</button>
+        </div>
+      </article>
+
+      <article class="card" data-poster="flammable_poster.jpg" data-video="flammable_video.mp4">
+        <div class="left">
+          <div class="num">9</div>
+          <div class="meta">
+            <div class="title">FLAMMABLE AND TOXIC SUBSTANCES</div>
+            <div class="subtitle">Handling, storage & PPE</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn poster" data-action="poster">Poster</button>
+          <button class="btn video" data-action="video">Video</button>
+        </div>
+      </article>
+
+      <article class="card" data-poster="moving_poster.jpg" data-video="moving_video.mp4">
+        <div class="left">
+          <div class="num">10</div>
+          <div class="meta">
+            <div class="title">MOVING MACHINARY</div>
+            <div class="subtitle">Keep clear of moving parts</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn poster" data-action="poster">Poster</button>
+          <button class="btn video" data-action="video">Video</button>
+        </div>
+      </article>
+
+      <article class="card" data-poster="moc_poster.jpg" data-video="moc_video.mp4">
+        <div class="left">
+          <div class="num">11</div>
+          <div class="meta">
+            <div class="title">MOC (MANAGEMENT OF CHANGE)</div>
+            <div class="subtitle">Process for safe changes</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn poster" data-action="poster">Poster</button>
+          <button class="btn video" data-action="video">Video</button>
+        </div>
+      </article>
+
+      <article class="card" data-poster="alcohol_poster.jpg" data-video="alcohol_video.mp4">
+        <div class="left">
+          <div class="num">12</div>
+          <div class="meta">
+            <div class="title">ALCOHOL & DRUGS</div>
+            <div class="subtitle">Awareness and workplace policy</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn poster" data-action="poster">Poster</button>
+          <button class="btn video" data-action="video">Video</button>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <div style="color: red; font-weight: bold; font-style: italic; text-align: center; margin: 12px 0;">
+    Prepared by: R.K Giri
+  </div>
+
+  <footer>
+    <div class="wrap"></div>
+  </footer>
+
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <strong id="modal-title">Title</strong>
+        <button class="close" id="modal-close">✕</button>
+      </div>
+      <div class="media-wrap" id="media-wrap">
+        <!-- dynamic content inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Delegated click handling
+    document.getElementById('topics').addEventListener('click', function(e){
+      var btn = e.target.closest('button');
+      if(!btn) return;
+      var card = btn.closest('.card');
+      var action = btn.getAttribute('data-action');
+      var poster = card.getAttribute('data-poster');
+      var video = card.getAttribute('data-video');
+      var title = card.querySelector('.title').innerText;
+      openModal(title, action === 'poster' ? poster : video, action);
+    });
+
+    var modal = document.getElementById('modal');
+    var mediaWrap = document.getElementById('media-wrap');
+    var modalTitle = document.getElementById('modal-title');
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+
+    function openModal(title, src, type){
+      modalTitle.innerText = title;
+      mediaWrap.innerHTML = '';
+      if(!src){ mediaWrap.innerHTML = '<p style="color:#444">Media file not found: '+src+'</p>'; modal.classList.add('open'); return; }
+      if(type==='poster'){
+        var img = document.createElement('img'); img.className='poster'; img.src = src; img.alt = title+' poster';
+        mediaWrap.appendChild(img);
+      } else {
+        var v = document.createElement('video'); v.controls = true; v.setAttribute('playsinline',''); v.src = src; v.preload='metadata';
+        mediaWrap.appendChild(v);
+        // autoplay attempt (may be blocked on some devices)
+        v.play().catch(function(){/* ignore autoplay block */});
+      }
+      modal.classList.add('open');
+    }
+    function closeModal(){
+      modal.classList.remove('open');
+      mediaWrap.innerHTML = '';
+      // stop any playing video
+      var vids = mediaWrap.querySelectorAll('video');
+      vids.forEach(function(x){try{x.pause(); x.currentTime=0;}catch(e){}});
+    }
+
+    // Accessibility: keyboard close
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+
+    // --- URL / QR handler ---
+    // Supports links like:
+    // index.html?topic=3&action=video  OR index.html#topic=3&action=poster
+    // where topic is the 1-based topic number as listed.
+    function getParam(name){
+      // try query string first
+      var params = new URLSearchParams(window.location.search);
+      if(params.has(name)) return params.get(name);
+      // then try hash pattern
+      var hash = window.location.hash.replace('#','');
+      if(hash){
+        var hp = new URLSearchParams(hash);
+        if(hp.has(name)) return hp.get(name);
+      }
+      return null;
+    }
+
+    function openFromUrl(){
+      var t = getParam('topic');
+      var a = getParam('action');
+      if(!t) return;
+      var idx = parseInt(t,10);
+      if(isNaN(idx) || idx<1) return;
+      // find nth article (1-based)
+      var articles = document.querySelectorAll('#topics article.card');
+      if(idx>articles.length) return;
+      var card = articles[idx-1];
+      var title = card.querySelector('.title').innerText;
+      var poster = card.getAttribute('data-poster');
+      var video = card.getAttribute('data-video');
+      var type = (a==='poster' || a==='video') ? a : 'video';
+      openModal(title, type==='poster' ? poster : video, type);
+
+      // scroll into view for user
+      try{card.scrollIntoView({behavior:'smooth',block:'center'});}catch(e){}
+    }
+
+    // Run on load
+    window.addEventListener('load', function(){
+      // brief delay to ensure DOM ready
+      setTimeout(openFromUrl,100);
+    });
+  </script>
+</body>
+</html>
